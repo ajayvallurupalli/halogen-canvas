@@ -62,6 +62,7 @@ data Action =
     KeyInput KeyInput 
   | MouseInput MouseInput
   | TouchInput TouchInput
+  | Recieve Dimensions
 
 component :: forall m. MonadAff m => MonadRec m => H.Component (CanvasT m) Dimensions Output m
 component = do
@@ -114,6 +115,8 @@ handleAction = case _ of
     rect <- H.query _canvas unit getBoundingClientRect
     flip traverse_ rect $ \r -> do
        H.raise $ TouchEvent e r
+
+  Recieve dimensions -> H.put dimensions
 
 
 class IsEvent e where 
