@@ -37,6 +37,7 @@ component = do
     , eval: H.mkEval $ H.defaultEval { handleAction = handleAction
                                      , handleQuery = handleQuery 
                                      , initialize = Just Initialize
+                                     , receive = Just <<< Receive
                                      }
     }
 

@@ -9,6 +9,7 @@ module Halogen.Canvas.Interact
 import Prelude
 
 import Control.Monad.Rec.Class (class MonadRec)
+import Data.Maybe (Maybe(..))
 import Data.Traversable (traverse_)
 import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
@@ -22,11 +23,11 @@ import Type.Proxy (Proxy(..))
 import Web.DOM.Element (DOMRect)
 import Web.Event.Event (Event, stopPropagation)
 import Web.TouchEvent (TouchEvent)
+import Web.TouchEvent.TouchEvent as TouchEvent
 import Web.UIEvent.KeyboardEvent (KeyboardEvent)
 import Web.UIEvent.KeyboardEvent as KeyboardEvent
 import Web.UIEvent.MouseEvent (MouseEvent)
 import Web.UIEvent.MouseEvent as MouseEvent
-import Web.TouchEvent.TouchEvent as TouchEvent
 
 data KeyInput =
     KeyDown KeyboardEvent
@@ -71,6 +72,7 @@ component = do
     , render
     , eval: H.mkEval $ H.defaultEval { handleAction = handleAction
                                      , handleQuery = H.query _canvas unit
+                                     , receive = Just <<< Receive
                                      }
     }
 

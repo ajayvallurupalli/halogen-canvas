@@ -44,6 +44,7 @@ component = do
     , render
     , eval: H.mkEval $ H.defaultEval { handleAction = handleAction
                                      , initialize = Just Initialize
+                                     , receive = Just <<< Receive
                                      }
     }
 
